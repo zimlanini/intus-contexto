@@ -21,7 +21,7 @@ Transcrição da reunião. Nome do cliente. Se o cliente já tem arquivo em `02-
 8. Registrar decisão de escopo relevante em `06-memoria/decisoes.md`.
 
 ## Saída esperada
-Arquivo em `../about me /OUTPUTS/proposta-<cliente>/proposta.md`. Versão em HTML só quando o Matheus pedir.
+Arquivo em `entregas/proposta-<cliente>/proposta.md` no servidor (no Mac, `../about me /OUTPUTS/proposta-<cliente>/proposta.md`). Versão em HTML só quando o Matheus pedir.
 
 Junto da proposta, um bloco curto de perguntas em aberto que o Matheus precisa responder ou levar de volta ao cliente.
 

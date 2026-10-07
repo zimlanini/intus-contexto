@@ -22,7 +22,7 @@ A ordem do processo não muda. Cada fase gera um arquivo e passa pelo Matheus an
 Entre a fase 4 e a 5, refino. Nunca entregar handoff sem refino.
 
 ## Saída esperada
-Um arquivo por fase em `../about me /OUTPUTS/<projeto>/`, nomeados `01-discovery.md`, `02-definicao.md`, `03-projeto.md`, `04-prototipo.md`, `05-handoff.md`.
+Um arquivo por fase em `entregas/<projeto>/` no servidor (no Mac, `../about me /OUTPUTS/<projeto>/`), nomeados `01-discovery.md`, `02-definicao.md`, `03-projeto.md`, `04-prototipo.md`, `05-handoff.md`.
 
 Ao final de cada fase, um resumo curto do que ficou aberto e do que precisa de decisão do Matheus.
 
