@@ -1,3 +1,10 @@
+---
+tipo: referencia
+status: ativo
+tags: [skill, proposta-comercial, transcricao]
+resumo: Passo a passo para transformar transcrição de reunião em proposta comercial sem inventar escopo.
+---
+
 # Skill: transcrição de reunião para proposta comercial
 
 ## Quando usar
@@ -27,3 +34,9 @@ Junto da proposta, um bloco curto de perguntas em aberto que o Matheus precisa r
 
 ## Erros comuns
 Inventar prazo ou preço que não apareceu na reunião. Escrever escopo vago para parecer abrangente. Traduzir a dor do cliente para jargão de produto e perder a linguagem dele.
+
+## Relacionadas
+
+- [[proposta-comercial]]
+- [[escrita]]
+- [[decisoes]]

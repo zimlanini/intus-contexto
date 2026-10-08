@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: ativo
+tags: [cfm, helpdesk, redmine, agentes]
+resumo: Agentes atuando nos tickets do Redmine do time de TI do CFM, projeto iniciado em 06/10/2026.
+---
+
 # CFM: Help Desk TI
 
 Última revisão: 2026-10-06
@@ -15,3 +22,7 @@ Agentes atuando nos tickets do Redmine do time de tecnologia do CFM, para diminu
 
 ## PENDENTE
 O projeto acabou de começar; só existe o escopo inicial. Volume de tickets, integrações, quem opera do lado do CFM, métricas. Se houver mudança de rumo, atualizar este arquivo.
+
+## Relacionadas
+
+- [[AGENTS]]

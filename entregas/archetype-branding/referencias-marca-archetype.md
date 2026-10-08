@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: PENDENTE
+tags: [archetype, marca, branding, referencias]
+resumo: Mapa de 88 referências e três caminhos possíveis para o conceito e a identidade da marca Archetype.
+---
+
 # ARCHETYPE | Mapa de referências para conceito e identidade
 
 Levantamento de referências para a construção da marca Archetype: plataforma que organiza bases de conhecimento para decisão em escala, para times de especialistas afogados em documentos técnicos. O documento cobre territórios conceituais, marcas para dissecar, cases de identidade, raízes históricas do design da informação, direções estéticas menos óbvias, sites e landings, e fontes de garimpo contínuo. Total: 88 referências.
@@ -163,3 +170,7 @@ Fontes pra alimentar o moodboard durante todo o projeto, não só agora.
 3. A partir do caminho escolhido, aprofundar: moodboard fechado, exercícios de símbolo, testes tipográficos e definição de paleta.
 
 Se quiser, o próximo trabalho meu pode ser transformar o caminho escolhido num conceito de marca escrito (essência, personalidade, princípios visuais) pra guiar o desenho do enxoval.
+
+## Relacionadas
+
+- [[archetype]]

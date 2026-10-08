@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: ativo
+tags: [archetype, ocr, cfm, biblioteca]
+resumo: O que é o Archetype hoje: o OCR da Biblioteca do CFM, separado do Forge.
+---
+
 # Archetype
 
 Última revisão: 2026-10-06
@@ -13,3 +20,10 @@ Nasceu como produto de Document AI multi-tenant, com módulos de Search, Chat e 
 
 ## Design system
 Registro de 14/09, conferir: a superfície usa o DS do Workflow Builder, sobre o overflow-ui. Ver `../design-system.md`.
+
+## Relacionadas
+
+- [[cfm-biblioteca]]
+- [[forge]]
+- [[design-system]]
+- [[referencias-marca-archetype]]

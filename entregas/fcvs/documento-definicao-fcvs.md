@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: feito
+tags: [emgea, fcvs, definicao, persona, jornada]
+resumo: Definição da ferramenta de cálculo do FCVS: insights, persona principal, mapa de empatia e jornada.
+---
+
 # Documento de Definição: Ferramenta de Cálculo do FCVS
 
 **Data**: 16 de março de 2026
@@ -334,3 +341,9 @@ proxima_fase: projeto
 *Documento de Definição concluído.*
 *Ele consolida os insights, a persona principal, o mapa de empatia e o Journey Map do projeto.*
 *Este documento serve como base para a próxima fase: Projeto (arquitetura de informação, fluxos e wireframes).*
+
+## Relacionadas
+
+- [[emgea-fcvs]]
+- [[documento-discovery-fcvs]]
+- [[documento-projeto-fcvs]]

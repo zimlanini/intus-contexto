@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: parado
+tags: [emgea, recuperacao-de-credito, second-brain, juridico]
+resumo: Recuperação de Crédito da EMGEA, parada por questão contratual; registro de 14/09 vale como histórico.
+---
+
 # EMGEA, Recuperação de Crédito
 
 Última revisão: 2026-10-06
@@ -33,3 +40,10 @@ PENDENTE: taxa de "não encontrado" incorreto e ponto de virada entre custo de t
 
 ## Dono
 Matheus em direção técnica, revisão de arquitetura e coordenação entre times.
+
+## Relacionadas
+
+- [[emgea-fcvs]]
+- [[tipos-de-documentos-v2]]
+- [[forge]]
+- [[metodos-acervo-6000-paginas]]

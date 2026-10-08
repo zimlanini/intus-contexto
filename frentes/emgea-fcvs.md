@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: parado
+tags: [emgea, fcvs, datayeld, cohab]
+resumo: EMGEA FCVS parado por questão contratual; a expansão do escopo com a DataYeld segue ativa e independente.
+---
+
 # EMGEA: FCVS e expansão com a DataYeld
 
 Última revisão: 2026-10-06
@@ -16,3 +23,9 @@ Meu envolvimento: nenhum. Não participo de negociação comercial.
 
 ## Escopo do cliente EMGEA
 Tudo que envolve a EMGEA e a expansão do FCVS se resume a três projetos: FCVS, Recuperação de Crédito (`emgea-recuperacao-credito.md`) e esta expansão.
+
+## Relacionadas
+
+- [[emgea-recuperacao-credito]]
+- [[documento-discovery-fcvs]]
+- [[documento-handoff-fcvs]]

@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: ativo
+tags: [forge, plataforma, workflow, temporal, nodes]
+resumo: Forge, a plataforma carro-chefe de workflows por nodes, levantada do código-fonte em 14/09/2026.
+---
+
 # Forge
 
 > Atualização de 2026-10-06
@@ -121,3 +128,10 @@ PENDENTE: Daniel Carnelossi é o tech lead. Confirmar quem responde por cada cam
 ## Fontes
 
 `README.md`, `docs/product/overview.md`, `docs/architecture/forge-architecture.md`, `docs/architecture/workers-development-guide.md`, `docs/services/legal-document-indexer.md`, `docs/backlog/backlog.md`, `docs/backlog/initiatives/bl-045-knowledge-base-qa.md`, `docs/backlog/initiatives/bl-046-knowledge-base-qa-sem-motor-dedicado.md`, `RELATORIO-BENCHMARK-PDF.md`, `package.json`, `.firebaserc`, `.gitmodules`.
+
+## Relacionadas
+
+- [[archetype]]
+- [[design-system]]
+- [[emgea-recuperacao-credito]]
+- [[decisoes]]

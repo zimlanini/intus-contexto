@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: PENDENTE
+tags: [site-intus, claude-code, roteiro, landing]
+resumo: Roteiro em fases com checkpoint para construir a landing da Intus no Claude Code.
+---
+
 # Roteiro para Claude Code · Landing Intus
 
 Diferente do prompt de bloco único, aqui o trabalho vai em fases com checkpoint. Claude Code roda comando e lê arquivo, então dá para verificar em vez de confiar.
@@ -99,3 +106,8 @@ Por isso o `CLAUDE.md` repete as seis restrições em vez de só apontar para o 
 Esforço alto ajuda no plano da Fase 0 e na Fase 4, que envolvem decisão de arquitetura e varredura. Não ajuda em fidelidade de token: o que impede desvio é o arquivo e o script, não o tamanho do raciocínio. Se quiser economizar, use esforço alto nas fases 0 e 4 e normal nas 1, 2 e 3.
 
 Uma coisa a não fazer: disparar subagentes para construir seções em paralelo. Eles não compartilham o que foi decidido em tempo de execução e voltam com espaçamento e nomenclatura divergentes, que é exatamente o defeito que este setup existe para evitar.
+
+## Relacionadas
+
+- [[prompt-reconstrucao]]
+- [[entregas/site-intus/DESIGN]]

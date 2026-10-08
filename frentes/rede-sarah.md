@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: ativo
+tags: [rede-sarah, clm, sap, fourtrust]
+resumo: POC de CLM para a Rede Sarah com a Fourtrust, contratação em andamento.
+---
+
 # Rede Sarah: CLM
 
 Última revisão: 2026-10-06
@@ -15,3 +22,7 @@ Sair de um SAP/4HANA engessado para uma solução de CLM (Contract Lifecycle Man
 
 ## Horizonte
 Se o contrato sair para o ano que vem: um ano para construir o CLM com a Fourtrust, com o objetivo de garantir um contrato de mais 5 anos com a Rede Sarah. Roadmap só será desenhado quando avançar.
+
+## Relacionadas
+
+- [[AGENTS]]

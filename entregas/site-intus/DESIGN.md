@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: PENDENTE
+tags: [site-intus, design-system, tokens, acessibilidade]
+resumo: Tokens, regras de contraste e de estado da landing institucional da Intus, para implementação em React e Tailwind.
+---
+
 # DESIGN.md · Site institucional Intus
 
 ## Mission
@@ -156,3 +163,9 @@ A contagem de componentes do arquivo anterior (233 botões, 136 links) veio da l
 - Toda regra de acessibilidade precisa ser testável na implementação
 - Nenhum hex cru em componente
 - Consistência do sistema tem prioridade sobre exceção visual local
+
+## Relacionadas
+
+- [[prompt-reconstrucao]]
+- [[textos-procedencia]]
+- [[prompt-claude-code]]

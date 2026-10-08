@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: feito
+tags: [rag, ocr, recuperacao, citacao-verificavel]
+resumo: Comparação de métodos de ingestão, recuperação e orquestração para responder com precisão sobre um acervo de 6000 páginas.
+---
+
 # Métodos para responder com precisão sobre um acervo de 6000 páginas
 
 Levantamento dos métodos disponíveis hoje para fazer um LLM responder com precisão sobre um acervo de 6000 páginas com três naturezas misturadas: PDF escaneado com manuscrito, tabela e planilha dentro do documento, e página digital com texto extraível. O objetivo é dar base de decisão de arquitetura para o produto de RAG de análise de documentos.
@@ -223,3 +230,8 @@ PENDENTE no arquivo do produto: `cerebro/01-empresa/produtos/rag-documentos.md` 
 - [ColPali: Efficient Document Retrieval with Vision Language Models](https://arxiv.org/abs/2407.01449)
 - [PDF Retrieval with Vision Language Models, Vespa](https://blog.vespa.ai/retrieval-with-vision-language-models-colpali/)
 - [GraphRAG vs Vector RAG: When Knowledge Graphs Beat Embeddings](https://tianpan.co/blog/2026-04-17-graphrag-vs-vector-rag-knowledge-graphs)
+
+## Relacionadas
+
+- [[decisoes]]
+- [[forge]]

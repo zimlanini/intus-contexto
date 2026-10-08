@@ -1,3 +1,10 @@
+---
+tipo: referencia
+status: ativo
+tags: [skill, prd, jornada, handoff, processo]
+resumo: Rotina das cinco fases de produto, de discovery a handoff, com um arquivo por fase.
+---
+
 # Skill: PRD, jornada e handoff
 
 ## Quando usar
@@ -28,3 +35,10 @@ Ao final de cada fase, um resumo curto do que ficou aberto e do que precisa de d
 
 ## Erros comuns
 Pular discovery porque o problema parece claro. Escrever métrica de sucesso que não é medível. Handoff que descreve a tela sem descrever a regra por trás dela.
+
+## Relacionadas
+
+- [[prd]]
+- [[jornada-usuario]]
+- [[design-system]]
+- [[perfil]]

@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: PENDENTE
+tags: [site-intus, copy, procedencia, revisao]
+resumo: Classificação da origem de cada texto da landing da Intus e os 8 pontos que precisam de aprovação.
+---
+
 # Procedência dos textos · Landing Intus
 
 Cada linha da copy classificada por origem, para você aprovar, ajustar ou cortar antes de existir código.
@@ -158,3 +165,8 @@ Nenhum destes pode ir para o ar sem sua confirmação. Estão agrupados por tipo
 ## Como me devolver isso
 
 Não precisa reescrever nada. Marque cada um dos 8 com `ok`, `corta` ou o dado correto, e me diga se algum `PROP` das tabelas acima te incomodou. Com isso eu ajusto o texto e aí sim partimos para o HTML e CSS.
+
+## Relacionadas
+
+- [[prompt-reconstrucao]]
+- [[escrita]]

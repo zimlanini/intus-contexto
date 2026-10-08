@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: PENDENTE
+tags: [site-intus, prompt, landing, copy]
+resumo: Prompt único para o Cursor construir a landing da Intus a partir do DESIGN.md, com os textos fechados.
+---
+
 # Prompt de reconstrução · Landing Intus
 
 Cole o bloco abaixo no Cursor com `DESIGN.md` aberto no contexto do projeto.
@@ -178,3 +185,9 @@ Linha final: `© 2026 Intus Legere. Todos os direitos reservados.`
 Um componente por seção, em arquivos separados, com os tokens do DESIGN.md refletidos em `tailwind.config.ts` e em CSS custom properties no `globals.css`. Space Grotesk e Roboto carregadas com `display: swap` e subset latin-ext.
 
 Ao final, gere uma tabela `| Seção | Tokens usados | Estados cobertos | Risco de acessibilidade |` para eu revisar antes de rodar a skill do Emil em cima.
+
+## Relacionadas
+
+- [[entregas/site-intus/DESIGN]]
+- [[textos-procedencia]]
+- [[prompt-claude-code]]

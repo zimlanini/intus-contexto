@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: PENDENTE
+tags: [site-intus, design-system, marca, acessibilidade]
+resumo: Guia visual da Intus independente de stack: cor, tipografia, espaço, movimento, acessibilidade e escrita.
+---
+
 # DESIGN.md · Intus
 
 Guia visual da Intus. Descreve como o site parece e se comporta, sem assumir framework, biblioteca ou ferramenta de build. Serve para qualquer stack.
@@ -222,3 +229,9 @@ Sombra para separar card em fundo escuro.
 Texto corrido abaixo de 16px.
 
 Título pulando nível.
+
+## Relacionadas
+
+- [[entregas/site-intus/DESIGN]]
+- [[textos-procedencia]]
+- [[escrita]]

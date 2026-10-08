@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: feito
+tags: [emgea, fcvs, handoff, especificacao]
+resumo: Handoff da ferramenta de cálculo do FCVS: rotas, regras de negócio, critérios de aceite e QA para implementação.
+---
+
 # Documento de Handoff: Ferramenta de Cálculo do FCVS
 
 **Data**: 17 de março de 2026
@@ -902,3 +909,9 @@ decisoes_estrategicas:
 *Este documento encerra o pipeline de UX e está pronto para implementação.*
 
 *Pipeline completo: Discovery → Definição → Projeto → Protótipo → Handoff ✓*
+
+## Relacionadas
+
+- [[emgea-fcvs]]
+- [[documento-prototipo-fcvs]]
+- [[prd-jornada-handoff]]

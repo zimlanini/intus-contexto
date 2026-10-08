@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: parado
+tags: [emgea, recuperacao-de-credito, taxonomia, documentos-juridicos]
+resumo: Lista simples de tipos de documento dos processos de execução da EMGEA, para orientar o agente classificador.
+---
+
 # Tipos de documentos em processos de recuperação de crédito EMGEA
 
 Levantamento feito a partir dos dois processos da pasta EMGEA 2: a execução de MG (0016104-61.1994.4.01.3800) e a execução do RJ (0062963-08.1996.4.02.5104). Os dois são execuções de título extrajudicial com garantia hipotecária, movidas pela EMGEA como exequente. Esta é a versão simples da taxonomia, tipo e definição, para orientar o agente que vai classificar cada documento dos autos.
@@ -80,3 +87,8 @@ O arquivo QUESTIONAMENTOS PARA ESTUDO DE PROCESSOS.docx já separa o que é ruí
 ## Próximos passos
 
 Validar esta lista com o time jurídico e, na sequência, evoluir para a versão dois: para cada tipo, os campos que o agente deve extrair (data, valor, partes, localização nos autos), amarrando com as perguntas do docx de questionamentos.
+
+## Relacionadas
+
+- [[emgea-recuperacao-credito]]
+- [[tipos-de-documentos-v2]]

@@ -1,3 +1,10 @@
+---
+tipo: referencia
+status: ativo
+tags: [design-system, overflow-ui, tokens, forge, archetype]
+resumo: Base de tokens e padrões visuais do Forge e do Archetype, sobre o overflow-ui do Workflow Builder.
+---
+
 # Design system dos produtos
 
 Vale para as superfícies do Forge e do Archetype. Registrado em 2026-09-14.
@@ -24,3 +31,9 @@ O recorte virou plugin do Figma que gera o arquivo de forma reproduzível, no pr
 
 PENDENTE: escala tipográfica e de espaçamento do sistema autoral do Matheus, separado do overflow-ui.
 
+
+## Relacionadas
+
+- [[forge]]
+- [[archetype]]
+- [[AGENTS]]

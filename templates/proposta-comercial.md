@@ -1,3 +1,10 @@
+---
+tipo: referencia
+status: ativo
+tags: [template, proposta-comercial]
+resumo: Modelo de proposta comercial com diagnóstico, escopo, entregáveis, prazos e premissas.
+---
+
 # Proposta comercial: [cliente]
 
 ## Contexto
@@ -23,3 +30,7 @@ O que precisa ser verdade do lado do cliente para o prazo se sustentar: acesso a
 
 ## Próximos passos
 Ação, responsável e data.
+
+## Relacionadas
+
+- [[transcricao-para-proposta]]

@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: PENDENTE
+tags: [site-intus, claude-code, instrucoes, acessibilidade]
+resumo: Instruções de projeto para o Claude Code construir a landing da Intus, com restrições de contraste e verificação.
+---
+
 # Site institucional Intus
 
 Landing única em React + Tailwind. Público inclui órgãos governamentais, então acessibilidade é requisito contratual, não preferência.
@@ -37,3 +44,9 @@ Textos em português do Brasil. Tom humano e fundamentado, nunca frio. Confianç
 Não usar travessão. Não usar: otimizar, escalável, robusto, inovador, potencial, eficiente, personalizado, intuitivo, acelerar, simplificar, alavancar, transformador, holístico.
 
 Onde o texto de referência tiver `[preencher]`, deixe o marcador visível no código. Não estime número, não invente caso de cliente.
+
+## Relacionadas
+
+- [[prompt-claude-code]]
+- [[entregas/site-intus/DESIGN]]
+- [[escrita]]

@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: parado
+tags: [taiscrito, escriba-medico, saude]
+resumo: Escriba médico com IA, parado há meses, com o material de pesquisa produzido em setembro de 2026.
+---
+
 # Taiscrito
 
 Última revisão: 2026-10-06
@@ -14,3 +21,7 @@ CFM em nível nacional, ou rede de hospitais particulares.
 
 ## Material já produzido (setembro de 2026)
 Desk research. Análise de sete concorrentes (Voa Health, Lya Health, Vocis, Dr. Scriba, Heidi Health, Abridge, Freed), que mostrou como lacuna comum a conformidade com a CFM 2.454/2026 e o fluxo nativo de consentimento do paciente. Personas: Lucas (residente), Camila, Rafael e Fernanda. Guia visual (vetor editorial flat, terracota #E53D25, fundo #F5F7E0, grão de filme, sem gradiente, dois modos atmosféricos). Curta de cerca de 50 segundos gerado por IA.
+
+## Relacionadas
+
+- [[AGENTS]]

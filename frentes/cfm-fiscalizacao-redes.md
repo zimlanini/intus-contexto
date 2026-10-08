@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: ativo
+tags: [cfm, fiscalizacao, redes-sociais, instagram]
+resumo: Relatórios para o CFM sobre conduta de médicos em redes sociais, hoje na fase 1 com Instagram.
+---
+
 # CFM: Fiscalização de redes sociais
 
 Última revisão: 2026-10-06
@@ -14,3 +21,7 @@ Outras redes sociais e canais de venda conhecidos, para cercar melhor e gerar um
 
 ## Tese comercial
 O CFM é o piloto. A ideia é vender o produto para outros conselhos: Psicologia, Enfermagem, Contabilidade, entre outros.
+
+## Relacionadas
+
+- [[AGENTS]]

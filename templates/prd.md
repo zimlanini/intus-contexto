@@ -1,3 +1,10 @@
+---
+tipo: referencia
+status: ativo
+tags: [template, prd, produto]
+resumo: Modelo de PRD com problema, objetivos, não objetivos, métricas e riscos.
+---
+
 # PRD: [nome]
 
 ## Contexto e objetivo
@@ -26,3 +33,8 @@ O que ainda precisa de decisão e de quem.
 
 ## Próximos passos
 Ação, responsável e data.
+
+## Relacionadas
+
+- [[prd-jornada-handoff]]
+- [[jornada-usuario]]

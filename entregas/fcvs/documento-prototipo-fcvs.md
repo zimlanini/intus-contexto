@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: feito
+tags: [emgea, fcvs, prototipo, acessibilidade]
+resumo: Prototipação da ferramenta de cálculo do FCVS: arquitetura do fluxo, estados, heurísticas e testes rápidos.
+---
+
 # Documento de Prototipação: Ferramenta de Cálculo do FCVS
 
 **Data**: 17 de março de 2026
@@ -499,3 +506,9 @@ proxima_fase: handoff
 *Documento de Prototipação concluído.*
 *Ele consolida specs de protótipo, avaliação heurística, testes, validação e prompt descritivo de interface.*
 *Este documento serve como base para a próxima fase: Handoff (especificações técnicas para desenvolvimento).*
+
+## Relacionadas
+
+- [[emgea-fcvs]]
+- [[documento-projeto-fcvs]]
+- [[documento-handoff-fcvs]]

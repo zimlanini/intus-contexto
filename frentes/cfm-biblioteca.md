@@ -1,3 +1,10 @@
+---
+tipo: projeto
+status: ativo
+tags: [cfm, biblioteca, ocr, chat]
+resumo: Biblioteca do CFM: acervo de normas com OCR, validação pelo time da biblioteca e consulta por três chats.
+---
+
 # CFM: Biblioteca
 
 Última revisão: 2026-10-06
@@ -26,3 +33,8 @@ Contrato ativo com o CFM, com expansão provável para mais produtos no ano que 
 
 ## PENDENTE
 Restrições regulatórias (CFM, LGPD). Métricas. Links e materiais.
+
+## Relacionadas
+
+- [[archetype]]
+- [[AGENTS]]

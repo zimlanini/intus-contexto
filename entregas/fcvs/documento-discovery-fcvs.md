@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: feito
+tags: [emgea, fcvs, discovery, pesquisa]
+resumo: Discovery da ferramenta de cálculo do FCVS: contexto, mercado, concorrência e proto-personas.
+---
+
 # Documento de Discovery: Ferramenta de Cálculo do FCVS
 
 **Data**: 16 de março de 2026
@@ -305,3 +312,9 @@ proxima_fase: definicao
 
 *Documento de Discovery concluído.*
 *Este documento serve como base para a próxima fase: Definição (personas, jornadas, requisitos de UX e priorização).*
+
+## Relacionadas
+
+- [[emgea-fcvs]]
+- [[documento-definicao-fcvs]]
+- [[prd-jornada-handoff]]

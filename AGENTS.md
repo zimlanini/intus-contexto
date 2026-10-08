@@ -1,3 +1,10 @@
+---
+tipo: referencia
+status: ativo
+tags: [intus, mapa-de-frentes, regras]
+resumo: Regras da frente Intus, mapa de projetos com status e o que ler por tarefa.
+---
+
 # Intus
 
 Última revisão: 2026-10-06
@@ -48,3 +55,10 @@ A empresa diz não a: produto genérico; empresa de caráter duvidoso, bets ou a
 | Proposta comercial | arquivo da frente + `skills/transcricao-para-proposta.md` + `templates/proposta-comercial.md` |
 | UI dos produtos (Forge, Archetype) | `design-system.md` |
 | Retomar discussão antiga | `decisoes.md` (histórico; este arquivo prevalece em conflito) |
+
+## Relacionadas
+
+- [[decisoes]]
+- [[design-system]]
+- [[prd-jornada-handoff]]
+- [[transcricao-para-proposta]]

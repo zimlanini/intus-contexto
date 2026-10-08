@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: feito
+tags: [emgea, fcvs, projeto, design-sprint]
+resumo: Projeto da ferramenta de cálculo do FCVS: HMW, design sprint, decisões de escopo e to-do list.
+---
+
 # Documento de Projeto: Ferramenta de Cálculo do FCVS
 
 **Data**: 16 de março de 2026
@@ -296,3 +303,9 @@ proxima_fase: prototipo
 *Documento de Projeto concluído.*
 *Ele consolida o enquadramento de oportunidades (HMW), o Design Sprint e a to-do list do projeto.*
 *Este documento serve como base para a próxima fase: Protótipo (specs de interface e interação).*
+
+## Relacionadas
+
+- [[emgea-fcvs]]
+- [[documento-definicao-fcvs]]
+- [[documento-prototipo-fcvs]]

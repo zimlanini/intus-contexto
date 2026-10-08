@@ -1,3 +1,10 @@
+---
+tipo: decisao
+status: ativo
+tags: [decisoes, historico, forge, archetype]
+resumo: Histórico datado de decisões da Intus, com motivo e o que foi descartado; o AGENTS.md prevalece em conflito.
+---
+
 # Decisões
 
 Registro do que foi decidido e por quê. Formato: data, assunto, decisão, motivo, o que foi descartado.
@@ -80,3 +87,10 @@ Ponto de atenção para o design system: o produto roda Onest com tokens do shad
 
 Primeira carga da `taxonomia.yaml` do `intus_brain` feita a partir do vocabulário do código: run, node, Service, worker remoto, PageSet, ParsedDocument, arquivo permanente do projeto, knowledge base, citação verificável. Falta a coluna de como a proposta comercial chama cada um.
 
+
+## Relacionadas
+
+- [[forge]]
+- [[archetype]]
+- [[metodos-acervo-6000-paginas]]
+- [[design-system]]

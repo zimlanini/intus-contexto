@@ -1,3 +1,10 @@
+---
+tipo: entrega
+status: parado
+tags: [emgea, recuperacao-de-credito, taxonomia, extracao]
+resumo: Taxonomia v2 com os campos que o agente extrai de cada tipo de documento dos processos da EMGEA.
+---
+
 # Tipos de documentos EMGEA, versão 2 com campos de extração
 
 Camada detalhada sobre a lista simples. Para cada tipo de documento, este arquivo define o que ele é, quem aparece nele, quais datas importam e quais dados o agente precisa retirar. A base é a varredura dos dois processos da pasta EMGEA 2: a execução de MG (0016104-61.1994.4.01.3800, autuada em 29/07/1994, valor da causa R$ 9.354.206,62) e a execução do RJ (0062963-08.1996.4.02.5104, autuada em 15/10/1996).
@@ -742,3 +749,8 @@ Estado atual da recuperação, derivado do último evento com efeito prático e 
 ## Próximos passos
 
 Validar com o time jurídico os campos obrigatórios de cada tipo, separando o que o agente deve extrair sempre do que é desejável. Em seguida, definir o esquema de saída (JSON por documento, com tipo, campos, confiança e localização) e escolher a estratégia de OCR, já que boa parte dos volumes antigos está digitalizada com qualidade baixa e o texto extraído vem corrompido em trechos inteiros.
+
+## Relacionadas
+
+- [[emgea-recuperacao-credito]]
+- [[tipos-de-documentos-v1]]

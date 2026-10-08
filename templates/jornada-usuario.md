@@ -1,3 +1,10 @@
+---
+tipo: referencia
+status: ativo
+tags: [template, jornada, ux]
+resumo: Modelo de jornada do usuário com etapas, estados por tela e momentos de verdade.
+---
+
 # Jornada do usuário: [fluxo]
 
 ## Persona
@@ -20,3 +27,8 @@ Os pontos onde a pessoa decide continuar ou abandonar.
 
 ## Oportunidades priorizadas
 O que resolver primeiro e por quê.
+
+## Relacionadas
+
+- [[prd-jornada-handoff]]
+- [[prd]]
