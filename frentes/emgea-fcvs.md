@@ -2,12 +2,12 @@
 tipo: projeto
 status: parado
 tags: [emgea, fcvs, datayeld, cohab]
-resumo: EMGEA FCVS parado por questão contratual; a expansão do escopo com a DataYeld segue ativa e independente.
+resumo: EMGEA FCVS parado por questão contratual; a expansão do escopo com a DataYeld também está parada desde 08/10/2026.
 ---
 
 # EMGEA: FCVS e expansão com a DataYeld
 
-Última revisão: 2026-10-06
+Última revisão: 2026-10-08
 
 ## EMGEA FCVS
 Status: parado por questão contratual. Segue assim até o jurídico resolver ou o projeto ser encerrado de vez. Não tratar como frente em execução.
@@ -15,7 +15,7 @@ Status: parado por questão contratual. Segue assim até o jurídico resolver ou
 Frente para a EMGEA, empresa federal, na linha do FCVS. Desde a POC, montei a documentação de suporte à entrada do cliente em produção.
 
 ## Expansão com a DataYeld
-Status: ativo, em negociação. Anda independente da situação da EMGEA.
+Status: parado desde 08/10/2026. Motivo: PENDENTE. Não tratar como frente em execução.
 
 A DataYeld é uma empresa parceira que negocia com bancos e COHABs. A ideia é reaproveitar o escopo montado na solução da EMGEA nos casos de uso desses clientes.
 

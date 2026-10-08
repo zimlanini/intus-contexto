@@ -7,7 +7,7 @@ resumo: Regras da frente Intus, mapa de projetos com status e o que ler por tare
 
 # Intus
 
-Última revisão: 2026-10-06
+Última revisão: 2026-10-08
 
 Leia junto com as regras globais. Este ambiente é isolado: material de cliente (EMGEA, CFM e os que vierem) não sai daqui, não é citado em outra frente, e nada de outra frente entra aqui.
 
@@ -26,7 +26,7 @@ A empresa diz não a: produto genérico; empresa de caráter duvidoso, bets ou a
 | CFM | Fiscalização de redes sociais | Ativo, fase 1 (Instagram) | Baixo | `frentes/cfm-fiscalizacao-redes.md` |
 | EMGEA | FCVS | Parado por questão contratual, aguarda o jurídico | Parado | `frentes/emgea-fcvs.md` |
 | EMGEA | Recuperação de Crédito | Parado, mesmo motivo | Parado | `frentes/emgea-recuperacao-credito.md` |
-| DataYeld (parceira) | Expansão do escopo FCVS para bancos e COHABs | Ativo, em negociação | Nenhum | `frentes/emgea-fcvs.md` |
+| DataYeld (parceira) | Expansão do escopo FCVS para bancos e COHABs | Parado desde 08/10/2026, motivo PENDENTE | Nenhum | `frentes/emgea-fcvs.md` |
 | Rede Sarah | CLM | POC, contratação em andamento | Baixo hoje; PO se o contrato sair | `frentes/rede-sarah.md` |
 | Taiscrito | Escriba médico com IA | Parado há meses | Baixo | `frentes/taiscrito.md` |
 | Plataforma | Forge | Ativo, carro-chefe | Alto: product designer do Forge e apoio ao Daniel no que ele precisar | `frentes/forge.md` |
@@ -35,7 +35,7 @@ A empresa diz não a: produto genérico; empresa de caráter duvidoso, bets ou a
 ## Regras desta frente
 
 - Projeto parado não entra em sugestão, roadmap ou exemplo, a menos que eu peça.
-- A prospecção com a DataYeld anda independente da situação da EMGEA. Não trate uma como dependente da outra.
+- A prospecção com a DataYeld está parada desde 08/10/2026, motivo PENDENTE. Não presuma que parou pelo mesmo motivo da EMGEA.
 - Forge e Archetype são coisas diferentes. O Archetype nasceu como o OCR da Biblioteca do CFM e segue como solução focada no time da biblioteca. O Forge é a plataforma carro-chefe, com soluções montadas por nodes conforme o caso de uso. Não trate um como parte do outro.
 - Não participo de negociação comercial da Intus e não sou consultado sobre isso. Não me trate como fonte nem como responsável por negociação.
 

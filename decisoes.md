@@ -88,6 +88,14 @@ Ponto de atenção para o design system: o produto roda Onest com tokens do shad
 Primeira carga da `taxonomia.yaml` do `intus_brain` feita a partir do vocabulário do código: run, node, Service, worker remoto, PageSet, ParsedDocument, arquivo permanente do projeto, knowledge base, citação verificável. Falta a coluna de como a proposta comercial chama cada um.
 
 
+## 2026-10-08 | Expansão do FCVS com a DataYeld parada
+
+Decisão: a expansão do escopo do FCVS para bancos e COHABs, negociada pela DataYeld, passa de ativa para parada. Informado pelo Matheus em 08/10/2026.
+
+Motivo: PENDENTE.
+
+Atualizados: `AGENTS.md` (mapa de frentes e regra da DataYeld) e `frentes/emgea-fcvs.md`.
+
 ## Relacionadas
 
 - [[forge]]
