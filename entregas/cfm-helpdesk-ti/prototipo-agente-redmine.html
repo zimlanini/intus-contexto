@@ -1,0 +1,317 @@
+<title>Agente no Redmine</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: barra de topo no vernáculo do Redmine, fila à esquerda, ticket à direita; tudo que o agente produz fica em superfície própria (verde-petróleo) para separar do conteúdo nativo */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --fg:#1f2a33; --muted:#5d6b77; --line:#d9e0e6;
+  --native:#3d5d7a; --native-ink:#ffffff; --native-soft:#e6edf4;
+  --agent:#0e6b63; --agent-soft:#e3f2ef; --agent-line:#a9d6cf;
+  --ok:#2f7d32; --ok-soft:#e5f3e5; --warn:#9a6100; --warn-soft:#fbf0db; --esc:#a33a3a; --esc-soft:#f8e4e4;
+  --pend:#7a4fa0;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12171c; --surface:#1a2128; --fg:#dde5ec; --muted:#93a2ae; --line:#2c3640;
+  --native:#2a4560; --native-ink:#e8eff6; --native-soft:#203242;
+  --agent:#5cc4b6; --agent-soft:#15302d; --agent-line:#2b5a54;
+  --ok:#7cc77f; --ok-soft:#1c3320; --warn:#e2b25a; --warn-soft:#352a14; --esc:#ec8f8f; --esc-soft:#3a1f1f;
+  --pend:#c3a2e2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171c; --surface:#1a2128; --fg:#dde5ec; --muted:#93a2ae; --line:#2c3640;
+  --native:#2a4560; --native-ink:#e8eff6; --native-soft:#203242;
+  --agent:#5cc4b6; --agent-soft:#15302d; --agent-line:#2b5a54;
+  --ok:#7cc77f; --ok-soft:#1c3320; --warn:#e2b25a; --warn-soft:#352a14; --esc:#ec8f8f; --esc-soft:#3a1f1f;
+  --pend:#c3a2e2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.5}
+.top{background:var(--native);color:var(--native-ink);padding:10px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.top h1{font-size:16px;font-weight:600;margin:0}
+.top small{opacity:.8;font-size:12px;display:block}
+.mode{display:flex;gap:0;border:1px solid rgba(255,255,255,.4);border-radius:6px;overflow:hidden}
+.mode button{font:inherit;font-size:13px;background:transparent;color:var(--native-ink);border:0;padding:6px 12px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--native-ink);color:var(--native);font-weight:600}
+.mode button:focus-visible,button:focus-visible,.row:focus-visible{outline:2px solid var(--agent);outline-offset:2px}
+.wrap{padding-inline:16px;padding-block:16px;max-width:1360px;margin:0 auto;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;min-width:0}
+.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
+.sum div{padding:10px 12px;border-right:1px solid var(--line)}
+.sum div:last-child{border-right:0}
+.sum b{display:block;font-size:22px;font-variant-numeric:tabular-nums;font-weight:600}
+.sum span{font-size:12px;color:var(--muted)}
+.cmp{font-size:12px;color:var(--muted);padding:8px 12px;border-bottom:1px solid var(--line)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.chipbtn{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:3px 10px;cursor:pointer}
+.chipbtn[aria-pressed="true"]{background:var(--native-soft);border-color:var(--native);font-weight:600}
+.list{max-height:calc(100vh - 260px);overflow:auto}
+@media (max-width:900px){.list{max-height:none}}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 10px;padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer;align-items:start}
+.row:hover{background:var(--native-soft)}
+.row[aria-current="true"]{background:var(--native-soft);box-shadow:inset 3px 0 0 var(--native)}
+.id{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:1px}
+.subj{min-width:0}
+.subj strong{font-weight:500;display:block;overflow-wrap:anywhere}
+.subj small{color:var(--muted);font-size:12px}
+.pill{font-size:11px;font-weight:600;border-radius:4px;padding:2px 7px;white-space:nowrap;letter-spacing:.02em}
+.p-responde{background:var(--ok-soft);color:var(--ok)}
+.p-rascunho{background:var(--warn-soft);color:var(--warn)}
+.p-escala{background:var(--esc-soft);color:var(--esc)}
+.p-enviado{background:var(--native-soft);color:var(--fg)}
+.detail{padding:16px 18px;display:grid;gap:16px}
+.crumb{font-size:12px;color:var(--muted)}
+.detail h2{font-size:19px;margin:2px 0 0;font-weight:600;text-wrap:balance}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px;font-size:13px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:10px}
+@media (max-width:520px){.meta{grid-template-columns:minmax(0,1fr)}}
+.meta div{display:flex;gap:8px;min-width:0}
+.meta dt{color:var(--muted);min-width:110px}
+.meta dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.desc{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px 12px;font-size:13.5px;overflow-wrap:anywhere}
+.lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin:0 0 6px}
+.agent{border:1px solid var(--agent-line);background:var(--agent-soft);border-radius:6px;padding:14px;display:grid;gap:14px}
+.agent-h{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.agent-h .who{color:var(--agent);font-weight:600;font-size:13px}
+.cls{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;border:1px solid var(--agent-line);background:var(--surface);border-radius:4px;padding:2px 8px}
+.tag em{font-style:normal;color:var(--muted)}
+.why{font-size:13.5px;margin:0}
+.flag{font-size:13px;border-left:3px solid var(--esc);background:var(--surface);padding:6px 10px;border-radius:0 4px 4px 0}
+textarea{width:100%;min-height:150px;font:inherit;font-size:13.5px;line-height:1.5;color:var(--fg);background:var(--surface);border:1px solid var(--agent-line);border-radius:4px;padding:10px;resize:vertical}
+.sent{white-space:pre-wrap;background:var(--surface);border:1px solid var(--agent-line);border-radius:4px;padding:10px 12px;font-size:13.5px}
+.pendtxt{color:var(--pend);font-weight:500}
+ul.src{margin:0;padding-left:18px;font-size:13px}
+ul.src li{margin-bottom:2px}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;border-radius:4px;padding:6px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--fg)}
+.btn.primary{background:var(--agent);border-color:var(--agent);color:var(--surface);font-weight:600}
+.journal{border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--muted)}
+.journal p{margin:0 0 4px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px}
+.note{font-size:12px;color:var(--muted);padding:10px 12px}
+@media (prefers-reduced-motion:no-preference){.row{transition:background .12s}}
+</style>
+
+<header class="top">
+  <div>
+    <h1>Help Desk TI · Redmine simulado</h1>
+    <small>Protótipo interno Intus. Tickets fictícios. Trechos em roxo dependem de documento que ainda não temos.</small>
+  </div>
+  <div class="mode" role="group" aria-label="Modo do agente">
+    <button id="m-rascunho" type="button" aria-pressed="true">Rascunho para aprovação</button>
+    <button id="m-direto" type="button" aria-pressed="false">Responde direto</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel" aria-label="Fila de tickets">
+    <div class="sum" id="sum"></div>
+    <div class="cmp" id="cmp"></div>
+    <div class="filters" id="filters"></div>
+    <div class="list" id="list"></div>
+    <div class="note">Clique num ticket para ver o que o agente fez e com base em quê.</div>
+  </section>
+  <section class="panel" aria-label="Ticket" id="detail"></section>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const P = s => s.replace(/\[([^\]]*PENDENTE[^\]]*)\]/g,'<span class="pendtxt">[$1]</span>');
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+// acao = o que o agente faz no modo "responde direto"; no modo rascunho, tudo que não escala vira rascunho
+const T = [
+{id:4101,tr:"Incidente",fr:"Certificado Digital",tipo:"Erro conhecido",assunto:"Certificado não aparece na hora de assinar a receita",sol:"Médico(a) 01",ts:"Médico",canal:"E-mail",data:"15/09/2026",prio:"Alta",prioSug:"Alta",conf:"Alta",acao:"responde",
+ desc:"Bom dia. Instalei o certificado no computador do consultório, ele aparece no navegador mas quando vou assinar a receita a plataforma diz que nenhum certificado foi encontrado. Já reiniciei duas vezes. Uso Windows 11. Segue print em anexo.",
+ why:"Sintoma igual a um erro já documentado na base: certificado A3 instalado, mas sem o driver do token. Resposta é procedimento, sem regra normativa envolvida.",
+ resp:"Olá. Pelo print, o certificado está instalado, mas a plataforma não encontra o token. Isso acontece quando falta o driver do fabricante do token.\n\n1. Instale o driver do fabricante do seu token.\n2. Desconecte e conecte o token de novo.\n3. Feche o navegador e tente assinar outra vez.\n\nSe continuar, responda este ticket com o modelo do token.",
+ src:["Base de erros conhecidos: certificado A3 não detectado na assinatura","Histórico: tickets resolvidos com a mesma causa"],falta:[],cruza:"Prescrição Eletrônica"},
+{id:4102,tr:"Dúvida",fr:"Certificado Digital",tipo:"Dúvida de regra",assunto:"Renovação de certificado vencido",sol:"Médico(a) 02",ts:"Médico",canal:"Formulário",data:"29/09/2026",prio:"Normal",prioSug:"Normal",conf:"Média",acao:"rascunho",
+ desc:"Meu certificado venceu semana passada. Preciso pagar de novo? O processo é o mesmo da primeira emissão ou tem algum caminho mais curto?",
+ why:"A pergunta envolve cobrança. A FAQ de certificado não cobre custo de renovação, e o agente não responde regra de cobrança sem fonte.",
+ resp:"Olá. A renovação do certificado [fluxo de renovação: PENDENTE]. Sobre o custo, [regra de cobrança da renovação: PENDENTE].\n\nAssim que confirmarmos, enviamos o passo a passo neste ticket.",
+ src:["FAQ Certificado Digital (sem item sobre renovação)"],falta:["Política de renovação e cobrança do certificado"]},
+{id:4103,tr:"Requisição",fr:"Certificado Digital",tipo:"Ação em sistema",assunto:"Revogação de certificado por perda do token",sol:"Servidor(a) Registro CRM-UF01",ts:"CRM",canal:"E-mail",data:"06/10/2026",prio:"Urgente",prioSug:"Urgente",conf:"Alta",acao:"escala",para:"Equipe Certificado Digital (N2)",
+ desc:"Médico(a) compareceu ao Regional informando perda do token. Como procedemos com a revogação? Ele(a) precisa de novo certificado com urgência porque atende em pronto-socorro e não consegue emitir receita.",
+ why:"Revogação é ação no sistema da autoridade certificadora. O agente classifica e resume, mas não executa.",
+ nota:"Perda de token, pedido de revogação e nova emissão. Médico(a) atende em pronto-socorro e está sem emitir receita: prioridade mantida em Urgente. Solicitante é servidor(a) do Regional, não o titular do certificado.",
+ src:["Mapa de operação: revogação é atribuição do N2 de Certificado Digital"],falta:[]},
+{id:4104,tr:"Incidente",fr:"Certificado Digital",tipo:"Diagnóstico",assunto:"Erro de cadeia de certificação inválida ao assinar documento",sol:"Médico(a) 03",ts:"Médico",canal:"Formulário",data:"07/10/2026",prio:"Normal",prioSug:"Alta",conf:"Média",acao:"responde",
+ desc:"Ao assinar qualquer documento aparece a mensagem: não foi possível validar a cadeia de certificação. Começou ontem, antes funcionava. Nenhuma atualização foi feita no computador que eu saiba.",
+ why:"Causa provável conhecida (certificados raiz desatualizados), mas faltam dados para confirmar. Pedir informação não tem risco, então no modo direto o agente pergunta sem esperar humano.",
+ resp:"Olá. Para identificarmos a causa, precisamos de três informações:\n\n1. O navegador e a versão que você usa.\n2. Se o certificado é A1 (arquivo) ou A3 (token ou cartão).\n3. Um print da mensagem completa.\n\nEsse erro costuma estar ligado a certificados raiz desatualizados no computador. Com essas informações indicamos a correção.",
+ src:["Base de erros conhecidos: falha de validação de cadeia"],falta:[]},
+{id:4105,tr:"Dúvida",fr:"Manual PF",tipo:"Dúvida de regra",assunto:"Inscrição secundária com débito de anuidade no CRM de origem",sol:"Servidor(a) Registro CRM-UF02",ts:"CRM",canal:"E-mail",data:"16/09/2026",prio:"Normal",prioSug:"Normal",conf:"Média",acao:"rascunho",
+ desc:"Médico(a) solicita inscrição secundária no nosso Regional, mas consta débito de anuidade no CRM de origem. Há parcelamento em curso. O manual permite deferir nesse caso? Não encontrei o item específico.",
+ why:"A regra geral está no manual, mas o caso tem exceção (parcelamento). Resposta normativa com exceção passa por validação humana.",
+ resp:"Olá. Pelo [item do MPA PF: PENDENTE], a inscrição secundária exige regularidade com o CRM de origem. Parcelamento em curso e em dia [é ou não aceito como regularidade: PENDENTE].\n\nRecomendamos anexar ao processo o comprovante do parcelamento.",
+ src:["MPA PF vigente, requisitos de inscrição secundária"],falta:["Item exato do MPA PF","Regra sobre parcelamento como regularidade"]},
+{id:4106,tr:"Dúvida",fr:"Manual PF",tipo:"Dúvida de regra",assunto:"Lista de documentos para transferência de inscrição",sol:"Servidor(a) Atendimento CRM-UF03",ts:"CRM",canal:"E-mail",data:"18/09/2026",prio:"Baixa",prioSug:"Baixa",conf:"Alta",acao:"responde",
+ desc:"Qual a lista atualizada de documentos para transferência de inscrição? Temos duas versões do manual circulando aqui e elas divergem no item do comprovante de endereço.",
+ why:"Pergunta direta com resposta literal no manual. O solicitante cita duas versões: o agente consulta só a marcada como vigente.",
+ resp:"Olá. Segue a lista de documentos para transferência de inscrição, conforme o MPA PF vigente [versão e item: PENDENTE].\n\nA versão anterior, que diverge no comprovante de endereço, não deve mais ser usada.",
+ src:["MPA PF vigente, transferência de inscrição","Controle de versões: versão anterior marcada como revogada"],falta:[]},
+{id:4107,tr:"Incidente",fr:"Manual PF",tipo:"Falha de sistema",assunto:"Sistema não salva segunda especialidade do médico",sol:"Servidor(a) Registro CRM-UF04",ts:"CRM",canal:"Formulário",data:"01/10/2026",prio:"Alta",prioSug:"Alta",conf:"Baixa",acao:"escala",para:"Sistemas (N2)",
+ desc:"Ao tentar registrar a segunda especialidade (RQE) do médico, o sistema retorna erro genérico e não salva. A primeira especialidade foi registrada normalmente mês passado. Testamos em dois computadores.",
+ why:"Nenhum erro conhecido corresponde ao sintoma. Falha reproduzida em dois computadores aponta para o sistema, não para a máquina do usuário.",
+ nota:"Erro ao salvar segunda especialidade (RQE). Reproduzido pelo solicitante em dois computadores. Primeira especialidade salvou normalmente. Sem correspondência na base de erros. Sugestão: verificar validação para mais de uma especialidade por médico.",
+ src:["Base de erros conhecidos: sem correspondência"],falta:[]},
+{id:4108,tr:"Dúvida",fr:"Manual PF",tipo:"Tema jurídico",assunto:"Cancelamento a pedido com processo ético em tramitação",sol:"Servidor(a) Jurídico CRM-UF01",ts:"CRM",canal:"E-mail",data:"02/10/2026",prio:"Normal",prioSug:"Normal",conf:"Baixa",acao:"escala",para:"Área normativa / Jurídico",
+ desc:"Médico(a) pediu cancelamento da inscrição, mas tem processo ético-profissional em tramitação no Regional. Podemos cancelar ou o pedido fica suspenso até o fim do processo?",
+ why:"Tema com consequência jurídica. Mesmo com o manual, o agente não responde: só encaminha com o trecho consultado.",
+ nota:"Pedido de cancelamento a pedido com processo ético-profissional em tramitação. Trecho do MPA PF consultado: [item: PENDENTE]. Agente não respondeu por ser tema jurídico.",
+ src:["MPA PF vigente, cancelamento de inscrição"],falta:["Item do MPA PF sobre cancelamento"]},
+{id:4109,tr:"Dúvida",fr:"Manual PJ",tipo:"Dúvida de regra",assunto:"Troca de diretor técnico comunicada fora do prazo",sol:"Servidor(a) PJ CRM-UF02",ts:"CRM",canal:"E-mail",data:"17/09/2026",prio:"Normal",prioSug:"Normal",conf:"Média",acao:"rascunho",
+ desc:"A empresa comunicou a troca do diretor técnico 40 dias depois do desligamento do anterior. Aplicamos alguma penalidade? Qual data registramos como início do novo diretor técnico: a do comunicado ou a informada pela empresa?",
+ why:"São duas perguntas. A data tem resposta no manual. A penalidade é decisão da fiscalização, então a resposta inteira passa por humano.",
+ resp:"Olá. Sobre a data: registre como início do novo diretor técnico a data informada pela empresa, com o comprovante anexado [item do MPA PJ: PENDENTE].\n\nSobre a comunicação fora do prazo: a análise de penalidade é do setor de fiscalização, e este ticket foi sinalizado para ele.",
+ src:["MPA PJ vigente, alteração de diretor técnico"],falta:["Item do MPA PJ","Confirmação do fluxo com a fiscalização"]},
+{id:4110,tr:"Requisição",fr:"Manual PJ",tipo:"Verificação de identidade",assunto:"Baixa de registro de empresa encerrada na Receita",sol:"Servidor(a) PJ CRM-UF05",ts:"CRM",canal:"Formulário",data:"05/10/2026",prio:"Baixa",prioSug:"Baixa",conf:"Média",acao:"rascunho",
+ desc:"Empresa já está baixada na Receita Federal e o sócio pede a baixa do registro no Regional. Ele não tem mais acesso ao e-mail cadastrado. Como seguimos?",
+ why:"O procedimento de baixa está no manual, mas a troca de contato exige verificação de identidade antes. Fica para aprovação humana.",
+ resp:"Olá. Para a baixa do registro, o sócio deve enviar [documentos exigidos: PENDENTE].\n\nComo ele não tem acesso ao e-mail cadastrado, a identidade precisa ser confirmada por [meio de verificação: PENDENTE] antes da atualização do contato.",
+ src:["MPA PJ vigente, baixa de registro"],falta:["Lista de documentos para baixa","Regra de verificação de identidade"]},
+{id:4111,tr:"Dúvida",fr:"Manual PJ",tipo:"Dúvida de regra",assunto:"Clínica com filial em outro estado",sol:"Servidor(a) PJ CRM-UF03",ts:"CRM",canal:"E-mail",data:"22/09/2026",prio:"Normal",prioSug:"Normal",conf:"Alta",acao:"responde",
+ desc:"Clínica registrada aqui vai abrir filial em outro estado. A filial registra no CRM do outro estado ou fica vinculada ao nosso registro? E o diretor técnico pode ser o mesmo?",
+ why:"Pergunta com resposta direta no manual, sem exceção no caso descrito.",
+ resp:"Olá. A filial registra no CRM da jurisdição onde vai funcionar, conforme o MPA PJ [item: PENDENTE]. A regra para o diretor técnico da filial está no mesmo item.\n\nSegue o trecho do manual em anexo.",
+ src:["MPA PJ vigente, registro de filial"],falta:[]},
+{id:4112,tr:"Incidente",fr:"Manual PJ",tipo:"Falha de sistema",assunto:"Certidão de regularidade PJ sai com diretor técnico antigo",sol:"Servidor(a) PJ CRM-UF04",ts:"CRM",canal:"Telefone",data:"06/10/2026",prio:"Normal",prioSug:"Urgente",conf:"Baixa",acao:"escala",para:"Sistemas (N2)",
+ desc:"A certidão de regularidade emitida hoje saiu com o nome do diretor técnico anterior, mesmo com a troca já registrada e aprovada no sistema. A empresa precisa da certidão para uma licitação até sexta.",
+ why:"Dado divergente entre cadastro e documento emitido é falha de sistema. O agente sugere subir a prioridade por causa do prazo citado.",
+ nota:"Certidão PJ emitida com diretor técnico anterior, apesar da troca aprovada. Prazo da empresa: licitação até sexta. Prioridade sugerida: Urgente (informada como Normal).",
+ src:["Base de erros conhecidos: sem correspondência"],falta:[]},
+{id:4113,tr:"Incidente",fr:"PAe",tipo:"Falha de sistema",assunto:"Processo parado na etapa de distribuição",sol:"Servidor(a) Secretaria CRM-UF01",ts:"CRM",canal:"E-mail",data:"03/10/2026",prio:"Alta",prioSug:"Alta",conf:"Baixa",acao:"escala",para:"Sistemas PAe (N2)",
+ desc:"O processo nº [número fictício] está há 5 dias em aguardando distribuição e não aparece na fila do conselheiro designado. Outros processos do mesmo dia andaram normalmente.",
+ why:"Processo travado em etapa específica, com outros andando: problema no registro desse processo. O agente não tem acesso ao PAe para diagnosticar.",
+ nota:"Processo parado há 5 dias em 'aguardando distribuição', não aparece na fila do conselheiro. Outros processos do mesmo dia seguiram. Verificar o registro de distribuição desse processo.",
+ src:["Manual do PAe: não disponível na base"],falta:["Manual do PAe"]},
+{id:4114,tr:"Requisição",fr:"PAe",tipo:"Ação em sistema",assunto:"Liberar acesso ao PAe para servidor recém-contratado",sol:"Gestor(a) Secretaria CRM-UF03",ts:"CRM",canal:"Formulário",data:"24/09/2026",prio:"Normal",prioSug:"Normal",conf:"Alta",acao:"escala",para:"Suporte N1",
+ desc:"Solicito criação de acesso ao PAe para servidor(a) que entrou no setor de processos esta semana. Perfil igual ao dos demais servidores do setor.",
+ why:"Pedido completo e de quem pode pedir (gestor do setor). Criar usuário exige permissão que o agente não tem: ele confere os dados e passa adiante.",
+ nota:"Pedido conferido: solicitante é gestor(a) do setor, perfil de referência informado. Pronto para criação do usuário.",
+ src:["Mapa de operação: criação de acesso é do N1"],falta:[]},
+{id:4115,tr:"Incidente",fr:"PAe",tipo:"Erro conhecido",assunto:"Erro ao anexar PDF grande no processo",sol:"Servidor(a) Secretaria CRM-UF02",ts:"CRM",canal:"E-mail",data:"19/09/2026",prio:"Normal",prioSug:"Normal",conf:"Alta",acao:"responde",
+ desc:"Tentei anexar um PDF de 18 MB com o prontuário digitalizado e o sistema fica carregando e depois dá erro. Arquivos pequenos anexam normalmente.",
+ why:"Sintoma igual ao erro documentado de limite de upload. Resposta é procedimento.",
+ resp:"Olá. O PAe tem limite de tamanho por anexo [valor: PENDENTE], e o arquivo de 18 MB passa desse limite.\n\nDivida o PDF em partes e anexe em sequência, com a numeração no nome do arquivo (parte 1 de 3, por exemplo).",
+ src:["Base de erros conhecidos: limite de upload no PAe"],falta:["Valor do limite de upload"]},
+{id:4116,tr:"Dúvida",fr:"PAe",tipo:"Dúvida de uso",assunto:"Como juntar dois processos do mesmo médico",sol:"Servidor(a) Secretaria CRM-UF05",ts:"CRM",canal:"E-mail",data:"07/10/2026",prio:"Baixa",prioSug:"Baixa",conf:"Média",acao:"rascunho",
+ desc:"Temos duas denúncias sobre o mesmo fato contra o mesmo médico, que viraram dois processos separados. Existe função de apensar no PAe ou isso é feito por despacho?",
+ why:"Dúvida de uso do sistema, mas o manual do PAe não está na base. O rascunho deixa claro o que precisa ser confirmado.",
+ resp:"Olá. A junção de processos sobre o mesmo fato [é feita pela função de apensar ou por despacho: PENDENTE].\n\n[Passo a passo: PENDENTE]",
+ src:["Manual do PAe: não disponível na base"],falta:["Manual do PAe"]},
+{id:4117,tr:"Incidente",fr:"Prescrição Eletrônica",tipo:"Erro conhecido",assunto:"Farmácia não consegue validar a receita",sol:"Médico(a) 04",ts:"Médico",canal:"Formulário",data:"25/09/2026",prio:"Alta",prioSug:"Alta",conf:"Alta",acao:"responde",
+ desc:"Paciente voltou da farmácia dizendo que a receita não é válida. Eu emiti pela plataforma normalmente ontem. O que pode ser?",
+ why:"Registro da receita mostra assinatura sem certificado ICP-Brasil, causa documentada. A solução passa por Certificado Digital, e o agente liga as duas frentes.",
+ resp:"Olá. A receita foi assinada sem certificado ICP-Brasil, por isso a farmácia não consegue validar.\n\nReemita a receita escolhendo a assinatura com certificado ICP-Brasil. Se ainda não tiver certificado, veja as orientações de Certificado Digital [link: PENDENTE].",
+ src:["Base de erros conhecidos: receita sem assinatura ICP-Brasil","FAQ Prescrição Eletrônica"],falta:[],cruza:"Certificado Digital"},
+{id:4118,tr:"Dúvida",fr:"Prescrição Eletrônica",tipo:"Norma externa",assunto:"Receita de controle especial pela plataforma",sol:"Médico(a) 05",ts:"Médico",canal:"Formulário",data:"14/09/2026",prio:"Normal",prioSug:"Normal",conf:"Média",acao:"rascunho",
+ desc:"Consigo emitir receita de controle especial pela prescrição eletrônica ou ainda precisa ser no papel?",
+ why:"Regra sanitária de fora do CFM. Sem a norma vigente confirmada na base, o agente não responde direto.",
+ resp:"Olá. A emissão de receita de controle especial pela plataforma segue [norma de referência: PENDENTE].\n\n[Resposta conforme a norma: PENDENTE]",
+ src:["FAQ Prescrição Eletrônica (sem item sobre controle especial)"],falta:["Norma vigente sobre receita de controle especial"]},
+{id:4119,tr:"Incidente",fr:"Prescrição Eletrônica",tipo:"Cadastro divergente",assunto:"Plataforma informa CRM inativo",sol:"Médico(a) 06",ts:"Médico",canal:"Telefone",data:"07/10/2026",prio:"Alta",prioSug:"Urgente",conf:"Média",acao:"escala",para:"Registro PF + Sistemas",
+ desc:"Não consigo entrar na prescrição eletrônica, aparece que meu CRM está inativo. Estou com a anuidade em dia e com inscrição ativa, tenho a certidão. Preciso emitir receitas hoje.",
+ why:"O problema aparece na Prescrição, mas a origem provável é o cadastro PF. Corrigir cadastro não é do agente.",
+ nota:"Inscrição aparece inativa na Prescrição Eletrônica; solicitante informa inscrição ativa e anuidade em dia, com certidão. Provável divergência entre cadastro PF e plataforma. Médico(a) precisa emitir receitas hoje: prioridade sugerida Urgente.",
+ src:["Mapa de operação: situação de inscrição é do Registro PF"],falta:[],cruza:"Manual PF"},
+{id:4120,tr:"Requisição",fr:"Prescrição Eletrônica",tipo:"Dado sensível",assunto:"RES: RES: Atestado",sol:"Médico(a) 07",ts:"Médico",canal:"E-mail",data:"06/10/2026",prio:"Normal",prioSug:"Normal",conf:"Média",acao:"rascunho",
+ desc:"Boa tarde, encaminho abaixo o e-mail da paciente. Preciso alterar o atestado emitido dia 12, ela pediu para não constar o CID. Dá pra editar ou tenho que emitir outro?\n\nAtt,\nMédico(a) 07\n\n-----Mensagem original-----\nDe: [paciente]\nEnviada em: sexta-feira\nAssunto: RES: Atestado\n\nDoutor(a), o RH da empresa pediu um atestado sem o CID, consegue me mandar outro? Obrigada",
+ why:"E-mail encaminhado: o agente separou o pedido do médico do histórico abaixo. Há dado de saúde no ticket, então a resposta nunca sai sem humano.",
+ flag:"Dado de saúde no ticket (CID e e-mail da paciente). O agente não repete esses dados na resposta.",
+ resp:"Olá. Um documento já assinado [pode ou não ser alterado: PENDENTE].\n\n[Orientação para emitir novo atestado: PENDENTE]",
+ src:["FAQ Prescrição Eletrônica","Regras de limite: dado sensível"],falta:["Regra de retificação de documento assinado"]}
+];
+const FR = ["Certificado Digital","Manual PF","Manual PJ","PAe","Prescrição Eletrônica"];
+const S = {mode:"rascunho",sel:4101,fr:null,enviados:{}};
+const $ = id => document.getElementById(id);
+
+function acaoDe(t){
+  if(S.enviados[t.id]) return "enviado";
+  if(t.acao==="escala") return "escala";
+  return S.mode==="direto" ? t.acao : "rascunho";
+}
+const LBL = {responde:"Respondido pelo agente",rascunho:"Rascunho para aprovar",escala:"Escalado",enviado:"Enviado após revisão"};
+function contar(mode){
+  const c={responde:0,rascunho:0,escala:0};
+  T.forEach(t=>{ if(t.acao==="escala") c.escala++; else c[mode==="direto"?t.acao:"rascunho"]++; });
+  return c;
+}
+function statusDe(t,a){
+  return {responde:"Feedback (aguarda solicitante)",rascunho:"Em andamento (revisão humana)",escala:"Em andamento",enviado:"Feedback (aguarda solicitante)"}[a];
+}
+function atribDe(t,a){
+  if(a==="escala") return t.para;
+  if(a==="responde") return "Agente Help Desk";
+  return "Suporte N1 (revisão)";
+}
+
+function renderSum(){
+  const c = contar(S.mode), o = contar(S.mode==="direto"?"rascunho":"direto");
+  $("sum").innerHTML = [["responde","Respondidos pelo agente"],["rascunho","Rascunhos para aprovar"],["escala","Escalados"]]
+    .map(([k,l])=>`<div><b style="color:var(--${k==="responde"?"ok":k==="rascunho"?"warn":"esc"})">${c[k]}</b><span>${l}</span></div>`).join("");
+  const outro = S.mode==="direto" ? "Rascunho para aprovação" : "Responde direto";
+  $("cmp").textContent = `No modo "${outro}": ${o.responde} respondidos, ${o.rascunho} rascunhos, ${o.escala} escalados. Mesmos 20 tickets.`;
+}
+function renderFilters(){
+  const all = [null,...FR];
+  $("filters").innerHTML = all.map(f=>`<button type="button" class="chipbtn" data-f="${f??""}" aria-pressed="${S.fr===f}">${f??"Todas as frentes"} <span style="color:var(--muted)">${f?T.filter(t=>t.fr===f).length:T.length}</span></button>`).join("");
+  $("filters").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.fr=b.dataset.f||null;render();});
+}
+function renderList(){
+  const rows = T.filter(t=>!S.fr||t.fr===S.fr);
+  $("list").innerHTML = rows.map(t=>{const a=acaoDe(t);return `<div class="row" role="button" tabindex="0" data-id="${t.id}" aria-current="${t.id===S.sel}">
+    <span class="id">#${t.id}</span>
+    <span class="subj"><strong>${esc(t.assunto)}</strong><small>${t.tr} · ${t.fr} · ${esc(t.sol)}</small></span>
+    <span class="pill p-${a}">${LBL[a]}</span></div>`}).join("");
+  $("list").querySelectorAll(".row").forEach(r=>{
+    const go=()=>{S.sel=+r.dataset.id;render();if(window.matchMedia("(max-width:900px)").matches)$("detail").scrollIntoView({behavior:"smooth"});};
+    r.onclick=go; r.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}};
+  });
+}
+function renderDetail(){
+  const t = T.find(x=>x.id===S.sel), a = acaoDe(t);
+  const meta = [["Status",statusDe(t,a)],["Prioridade",t.prio+(t.prioSug!==t.prio?` → sugerida ${t.prioSug}`:"")],["Atribuído para",atribDe(t,a)],["Categoria",t.fr],["Solicitante",t.sol+" ("+t.ts+")"],["Canal",t.canal],["Início",t.data],["Tracker",t.tr]]
+    .map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("");
+  const tags = `<span class="tag"><em>Frente</em> ${t.fr}</span><span class="tag"><em>Tipo</em> ${t.tipo}</span><span class="tag"><em>Certeza</em> ${t.conf}</span>${t.cruza?`<span class="tag"><em>Cruza com</em> ${t.cruza}</span>`:""}${t.prioSug!==t.prio?`<span class="tag"><em>Prioridade</em> ${t.prio} → ${t.prioSug}</span>`:""}`;
+  let corpo = "";
+  if(a==="escala"){
+    corpo = `<div><p class="lbl">Encaminhado para</p><p class="why"><strong>${esc(t.para)}</strong></p></div>
+      <div><p class="lbl">Nota interna para quem assume</p><div class="sent">${P(esc(t.nota))}</div></div>`;
+  } else if(a==="rascunho"){
+    corpo = `<div><p class="lbl">Rascunho de resposta ao solicitante</p><textarea id="draft-${t.id}" aria-label="Rascunho de resposta">${esc(t.resp)}</textarea></div>
+      <div class="actions"><button type="button" class="btn primary" id="aprovar">Aprovar e enviar</button><button type="button" class="btn" id="escalar">Escalar para N2</button></div>`;
+  } else {
+    const txt = a==="enviado" ? S.enviados[t.id] : t.resp;
+    corpo = `<div><p class="lbl">${a==="enviado"?"Resposta enviada após revisão humana":"Resposta enviada pelo agente"}</p><div class="sent">${P(esc(txt))}</div></div>`;
+  }
+  const falta = t.falta.length ? `<div><p class="lbl">O que falta para responder sem ressalva</p><ul class="src">${t.falta.map(f=>`<li class="pendtxt">${esc(f)}</li>`).join("")}</ul></div>` : "";
+  const hist = a==="responde" ? `<p>Agente Help Desk alterou Status para Feedback e adicionou resposta.</p>`
+    : a==="enviado" ? `<p>Suporte N1 aprovou o rascunho do agente e enviou.</p>`
+    : a==="escala" ? `<p>Agente Help Desk alterou Atribuído para ${esc(t.para)} e adicionou nota interna.</p>` : `<p>Agente Help Desk adicionou rascunho privado. Aguardando revisão.</p>`;
+  $("detail").innerHTML = `<div class="detail">
+    <div><div class="crumb">${t.tr} #${t.id}</div><h2>${esc(t.assunto)}</h2></div>
+    <dl class="meta">${meta}</dl>
+    <div><p class="lbl">Descrição</p><div class="desc">${P(esc(t.desc))}</div></div>
+    <div class="agent">
+      <div class="agent-h"><span class="who">Agente Help Desk</span><span class="pill p-${a}">${LBL[a]}</span></div>
+      <div class="cls">${tags}</div>
+      <div><p class="lbl">Por que esta decisão</p><p class="why">${esc(t.why)}</p></div>
+      ${t.flag?`<div class="flag">${esc(t.flag)}</div>`:""}
+      ${corpo}
+      <div><p class="lbl">Fontes consultadas</p><ul class="src">${t.src.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></div>
+      ${falta}
+    </div>
+    <div class="journal"><p class="lbl">Histórico</p>${hist}</div>
+  </div>`;
+  if(a==="rascunho"){
+    $("aprovar").onclick=()=>{S.enviados[t.id]=$("draft-"+t.id).value;toast(`Resposta do #${t.id} enviada ao solicitante`);render();};
+    $("escalar").onclick=()=>toast("No protótipo, escalar manualmente só registra a intenção");
+  }
+}
+let tt;function toast(m){const el=$("toast");el.textContent=m;el.hidden=false;clearTimeout(tt);tt=setTimeout(()=>el.hidden=true,2400);}
+function setMode(m){S.mode=m;$("m-rascunho").setAttribute("aria-pressed",m==="rascunho");$("m-direto").setAttribute("aria-pressed",m==="direto");render();}
+$("m-rascunho").onclick=()=>setMode("rascunho");
+$("m-direto").onclick=()=>setMode("direto");
+function render(){renderSum();renderFilters();renderList();renderDetail();}
+render();
+</script>
